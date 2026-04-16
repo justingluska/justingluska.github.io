@@ -86,6 +86,20 @@ header {
   padding-top: 20px;
 }
 
+#nav {
+  padding-top: 18px;
+  font-size: 16px;
+}
+#nav a {
+  border-bottom: 1px solid #3a3d42;
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+#nav a:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
 #contact a {
   display: inline-block;
   margin-right: 5px;

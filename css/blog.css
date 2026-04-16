@@ -1,0 +1,90 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Source+Code+Pro:400,600);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial;
+}
+
+html { height: 100%; }
+
+body {
+  background: #101214;
+  color: #a8abb1;
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 120px;
+}
+
+a {
+  color: #a8abb1;
+  text-decoration: none;
+  border-bottom: 1px solid #3a3d42;
+  transition: color 0.15s, border-color 0.15s;
+}
+a:hover { color: #fff; border-bottom-color: #fff; }
+
+.page {
+  width: 100%;
+  max-width: 680px;
+}
+
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 64px;
+  font-size: 15px;
+  color: #7A7C80;
+}
+.site-nav a { border: none; }
+.site-nav .brand { color: #fff; font-weight: 600; letter-spacing: 0.02em; }
+
+h1 {
+  color: #fff;
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+h2 {
+  color: #fff;
+  font-weight: 400;
+  font-size: 26px;
+  margin: 48px 0 16px;
+}
+
+.post-meta {
+  color: #6a6d73;
+  font-size: 14px;
+  font-family: "Source Code Pro", monospace;
+  margin-bottom: 40px;
+  letter-spacing: 0.05em;
+}
+
+.post-body p { margin-bottom: 22px; }
+.post-body ul { margin: 0 0 22px 20px; }
+.post-body li { margin-bottom: 6px; }
+.post-body em { color: #c4c7cc; font-style: italic; }
+
+.post-list { list-style: none; }
+.post-list li { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid #222528; }
+.post-list li:last-child { border-bottom: none; }
+.post-list a { border: none; display: block; }
+.post-list .post-title { color: #fff; font-size: 22px; font-weight: 400; margin-bottom: 6px; }
+.post-list .post-date { color: #6a6d73; font-size: 13px; font-family: "Source Code Pro", monospace; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+.post-list .post-desc { color: #8d9097; font-size: 16px; }
+.post-list a:hover .post-title { color: #e8e9ec; }
+
+@media (max-width: 578px) {
+  body { padding: 40px 20px 80px; font-size: 17px; }
+  h1 { font-size: 30px; }
+  .site-nav { margin-bottom: 40px; }
+}

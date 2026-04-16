@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>toggles and switches | justin gluska</title>
+  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <style>
+    .board {
+      margin: 40px 0 48px;
+      padding: 32px 20px 28px;
+      background: #15171a;
+      border: 1px solid #24272c;
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .board-hint {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-family: "Source Code Pro", monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: #5a5d63;
+    }
+    .board-toggles {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+    }
+    .toggle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .toggle-track {
+      width: 100%;
+      max-width: 44px;
+      height: 180px;
+      background: #1d1f23;
+      border-radius: 24px;
+      position: relative;
+      cursor: ns-resize;
+      touch-action: none;
+      overflow: hidden;
+      border: 1px solid #262a2f;
+    }
+    .toggle-fill {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, #c4c7cc 0%, #7a7c80 100%);
+      border-radius: 0 0 24px 24px;
+      transition: background 0.3s;
+    }
+    .toggle-handle {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 4px;
+      background: #fff;
+      border-radius: 2px;
+      pointer-events: none;
+      box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    }
+    .toggle-label {
+      font-size: 12px;
+      color: #8d9097;
+      text-align: center;
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+    .toggle-status {
+      font-family: "Source Code Pro", monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: #5a5d63;
+      text-align: center;
+      min-height: 14px;
+    }
+    .toggle.maxed .toggle-fill { background: linear-gradient(180deg, #e8a87c 0%, #c77d4c 100%); }
+    .toggle.maxed .toggle-label { color: #e8a87c; }
+    .toggle.maxed .toggle-status { color: #e8a87c; }
+    .toggle.neglected .toggle-fill { background: linear-gradient(180deg, #4a4d52 0%, #2d3035 100%); }
+    .toggle.neglected .toggle-label { color: #6a6d73; }
+    .toggle.neglected .toggle-status { color: #8a6a5a; }
+
+    .board-status {
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid #24272c;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Source Code Pro", monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+    .board-status .label { color: #5a5d63; }
+    .board-status .value { color: #fff; transition: color 0.3s; }
+
+    .board.imbalanced { border-color: #3d2a22; box-shadow: 0 0 40px rgba(199, 125, 76, 0.08); }
+    .board.crisis { border-color: #5a3024; box-shadow: 0 0 60px rgba(199, 125, 76, 0.18); }
+    .board.crisis .board-status .value { color: #e8a87c; }
+
+    @media (max-width: 578px) {
+      .board { padding: 24px 14px 22px; }
+      .board-toggles { grid-template-columns: repeat(4, 1fr); gap: 16px 10px; }
+      .toggle-track { height: 140px; }
+      .board-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="site-nav">
+      <a href="/" class="brand">justin gluska</a>
+      <a href="/blog/">← all posts</a>
+    </nav>
+
+    <h1>toggles and switches</h1>
+    <div class="post-meta">apr 16, 2026</div>
+
+    <div class="post-body">
+      <p>i've been thinking about this for a while. i think once you leave the systems in your life that are kind of done for you, it gets a lot harder to stay balanced. a lot of people leave that after high school. for me it was after college.</p>
+
+      <p>for me, i still had structure going into college. after graduation, i didn't really have that anymore. i had one internship during school, and after that i was just building things, doing marketing, figuring it out as i went. once you're out of that kind of structure, it's a little hard to balance yourself. and i think even if you do have a traditional job, this still applies.</p>
+
+      <p>life is about toggles. i talk to my friends a lot and it's always something. sometimes it's work, sometimes it's a partner, stuff like that. and i'm kind of realizing that once you're out of that societal safety net, you have to create most of the structure yourself. i did. i still am. it's going to take years. it's a lifelong process. it isn't something you just learn once and then you have it.</p>
+
+      <div class="board" id="board" role="group" aria-label="interactive life balance toggles">
+        <div class="board-hint">drag to adjust</div>
+        <div class="board-toggles" id="boardToggles"></div>
+        <div class="board-status">
+          <span class="label">state</span>
+          <span class="value" id="boardState">balanced</span>
+        </div>
+      </div>
+
+      <p>i think life is really about toggles and balance, and that's kind of what i'm trying to achieve. i don't even think it's something you really achieve. it's a constant balancing act to achieve balance, if that makes sense.</p>
+
+      <p>some days i'll work a lot. 9am to 6pm, then i'll take a walk around the block, maybe go to the gym maybe not, pick up some food, come home and work again from 8pm to 1 or 2 in the morning. i'll do that for a week or two and it just isn't sustainable. it causes problems.</p>
+
+      <p>then on the other side, if i travel for a week and a half and disconnect from everything, i start to feel like i'm missing that work toggle. i actually like what i do. i enjoy it. so when it's all the way down, something feels off too.</p>
+
+      <p>it's interesting because when you do something really good in one area, other toggles slip. the relationships in your life slip. obviously sometimes the work toggle has to be all the way up. but you always kind of need to pay attention to that equilibrium, that circadian rhythm of your psyche, of who you are. i don't really know how to say this and put it into words.</p>
+
+      <p>but yeah, i tend to find you should always kind of be striving for that balance. there are days and weeks, and sometimes it goes into months, where the toggles get moved around. and there are a lot of different kinds. work, social life, relationships, family, travel, fun, vices if you count those. money's one too. money kind of goes into work, but not always, because sometimes you work a lot and it doesn't pay much, and sometimes money becomes its own thing where you sacrifice a lot of other stuff for it.</p>
+
+      <p>all of these matter if you want a balanced life. that's kind of my first post.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var labels = ['work', 'money', 'relationships', 'family', 'social', 'travel', 'health', 'fun'];
+      var initial = [70, 55, 45, 50, 50, 40, 45, 55];
+      var container = document.getElementById('boardToggles');
+      var board = document.getElementById('board');
+      var stateEl = document.getElementById('boardState');
+      var toggles = [];
+
+      labels.forEach(function (label, i) {
+        var el = document.createElement('div');
+        el.className = 'toggle';
+        el.innerHTML =
+          '<div class="toggle-track">' +
+            '<div class="toggle-fill"></div>' +
+            '<div class="toggle-handle"></div>' +
+          '</div>' +
+          '<div class="toggle-status">' + initial[i] + '</div>' +
+          '<div class="toggle-label">' + label + '</div>';
+        container.appendChild(el);
+        toggles.push({
+          el: el,
+          track: el.querySelector('.toggle-track'),
+          fill: el.querySelector('.toggle-fill'),
+          handle: el.querySelector('.toggle-handle'),
+          status: el.querySelector('.toggle-status'),
+          value: initial[i]
+        });
+      });
+
+      function render(t) {
+        var v = t.value;
+        t.fill.style.height = v + '%';
+        t.handle.style.bottom = 'calc(' + v + '% - 2px)';
+        if (v >= 80) t.status.textContent = 'maxed';
+        else if (v <= 20) t.status.textContent = 'neglected';
+        else t.status.textContent = Math.round(v);
+        t.el.classList.toggle('maxed', v >= 80);
+        t.el.classList.toggle('neglected', v <= 20);
+      }
+
+      function stdDev(vals) {
+        var mean = vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+        var variance = vals.reduce(function (a, b) { return a + (b - mean) * (b - mean); }, 0) / vals.length;
+        return Math.sqrt(variance);
+      }
+
+      function updateBoard() {
+        var values = toggles.map(function (t) { return t.value; });
+        var sd = stdDev(values);
+        var anyExtreme = values.some(function (v) { return v >= 85 || v <= 15; });
+
+        var state;
+        if (sd < 10 && !anyExtreme) state = 'balanced';
+        else if (sd < 18 && !anyExtreme) state = 'a little uneven';
+        else if (sd < 28) state = 'out of balance';
+        else state = 'crisis mode';
+
+        stateEl.textContent = state;
+        board.classList.toggle('imbalanced', state === 'out of balance');
+        board.classList.toggle('crisis', state === 'crisis mode');
+      }
+
+      toggles.forEach(function (t) {
+        render(t);
+
+        function setFromPointer(e) {
+          var rect = t.track.getBoundingClientRect();
+          var y = e.clientY - rect.top;
+          var v = (1 - y / rect.height) * 100;
+          t.value = Math.max(0, Math.min(100, v));
+          render(t);
+          updateBoard();
+        }
+
+        t.track.addEventListener('pointerdown', function (e) {
+          t.track.setPointerCapture(e.pointerId);
+          setFromPointer(e);
+        });
+        t.track.addEventListener('pointermove', function (e) {
+          if (t.track.hasPointerCapture(e.pointerId)) setFromPointer(e);
+        });
+      });
+
+      updateBoard();
+    })();
+  </script>
+</body>
+</html>
