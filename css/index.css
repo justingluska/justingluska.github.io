@@ -95,6 +95,9 @@ header {
   padding-bottom: 2px;
   transition: color 0.15s, border-color 0.15s;
 }
+#nav a + a {
+  margin-left: 22px;
+}
 #nav a:hover {
   color: #fff;
   border-bottom-color: #fff;
