@@ -35,6 +35,10 @@ a:hover { color: #fff; border-bottom-color: #fff; }
   max-width: 680px;
 }
 
+.wide-page {
+  max-width: 820px;
+}
+
 .site-nav {
   display: flex;
   justify-content: space-between;
@@ -74,6 +78,57 @@ h2 {
 .post-body li { margin-bottom: 6px; }
 .post-body em { color: #c4c7cc; font-style: italic; }
 
+.lede,
+.bio-lead {
+  color: #c4c7cc;
+}
+
+.lede {
+  font-size: 22px;
+  line-height: 1.45;
+  margin-bottom: 36px;
+}
+
+.bio-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+.profile h1 {
+  margin-bottom: 10px;
+}
+
+.profile-photo {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.link-list {
+  list-style: none;
+}
+
+.link-list li {
+  margin-bottom: 12px;
+}
+
+.elsewhere {
+  margin-top: 42px;
+  padding-top: 32px;
+  border-top: 1px solid #25282d;
+}
+
 .post-list { list-style: none; }
 .post-list li { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid #222528; }
 .post-list li:last-child { border-bottom: none; }
@@ -87,4 +142,15 @@ h2 {
   body { padding: 40px 20px 80px; font-size: 17px; }
   h1 { font-size: 30px; }
   .site-nav { margin-bottom: 40px; }
+  .profile {
+    grid-template-columns: 72px 1fr;
+    gap: 16px;
+  }
+  .profile-photo {
+    width: 72px;
+    height: 72px;
+  }
+  .lede {
+    font-size: 18px;
+  }
 }

@@ -82,6 +82,14 @@ header {
   font-size: 22px;
 }
 
+#header-content .bio {
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.45;
+  color: #adb0b6;
+}
+
 #contact {
   padding-top: 20px;
 }
