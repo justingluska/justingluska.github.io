@@ -199,6 +199,31 @@ a:hover {
   header {
     padding: 20px;
   }
+  #header-content #logo {
+    width: 90px;
+    height: 75px;
+    margin-bottom: 10px;
+  }
+  h1, h2 {
+    font-size: 28px;
+  }
+  #header-content p {
+    padding-top: 6px;
+    font-size: 18px;
+  }
+  #header-content .bio {
+    font-size: 15px;
+  }
+  #contact {
+    padding-top: 14px;
+  }
+  #nav {
+    padding-top: 12px;
+  }
+  #ascii-wrap {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
 }
 
 #intro {
